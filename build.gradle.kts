@@ -4,5 +4,5 @@ plugins {
 }
 
 application {
-    mainClass = ("com.lithiumsakura.DSAUnit.Main")
+    mainClass = "com.lithiumsakura.DSAUnit.Main"
 }
