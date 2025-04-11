@@ -2,16 +2,22 @@ package com.lithiumsakura.DSAUnit.utils.graph;
 
 public class Edge<T> {
 
-    private final T vertex;
+    private final T source;
+    private final T destination;
     private final int weight;
 
-    public Edge(T vertex, int weight) {
-        this.vertex = vertex;
+    public Edge(T source, T destination, int weight) {
+        this.source = source;
+        this.destination = destination;
         this.weight = weight;
     }
 
-    public T getValue() {
-        return vertex;
+    public T getSource() {
+        return source;
+    }
+
+    public T getDestination() {
+        return destination;
     }
 
     public int getWeight() {
