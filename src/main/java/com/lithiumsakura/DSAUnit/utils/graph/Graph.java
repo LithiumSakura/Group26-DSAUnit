@@ -1,9 +1,6 @@
 package com.lithiumsakura.DSAUnit.utils.graph;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Graph<T> {
 
@@ -18,14 +15,16 @@ public class Graph<T> {
         adjacencyList.remove(vertex.getValue());
     }
 
-    public void addEdge(T source, T dest, int weight) {
+    public Edge<T> addEdge(T source, T dest, int weight) {
         if (!adjacencyList.containsKey(source)) {
             addVertex(source);
         }
         if (!adjacencyList.containsKey(dest)) {
             addVertex(dest);
         }
-        adjacencyList.get(source).add(new Edge<>(dest, weight));
+        Edge<T> edge = new Edge<>(dest, weight);
+        adjacencyList.get(source).add(edge);
+        return edge;
     }
 
     public void removeEdge(T source, T dest) {
@@ -37,6 +36,26 @@ public class Graph<T> {
         if (secondList != null) {
             secondList.removeIf(edge -> edge.getValue().equals(source));
         }
+    }
+
+    public List<Edge<T>> getAdjVertices(T vertex) {
+        return adjacencyList.get(vertex);
+    }
+
+    public Set<Edge<T>> depthFirstTraversal(Edge<T> rootEdge) {
+        Set<Edge<T>> visited = new HashSet<>();
+        Stack<Edge<T>> stack = new Stack<>();
+        stack.push(rootEdge);
+        while (!stack.isEmpty()) {
+            Edge<T> edge = stack.pop();
+            if (!visited.contains(edge)) {
+                visited.add(edge);
+                for (Edge<T> v : getAdjVertices(edge.getValue())) {
+                    stack.push(v);
+                }
+            }
+        }
+        return visited;
     }
 
     public int size() {
