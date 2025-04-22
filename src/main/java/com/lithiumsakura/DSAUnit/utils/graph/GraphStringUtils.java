@@ -1,9 +1,9 @@
 package com.lithiumsakura.DSAUnit.utils.graph;
 
-import java.util.Set;
+import java.util.List;
 
 public class GraphStringUtils {
-    public static <T> String edgesToString(Set<Edge<T>> edges) {
+    public static <T> String edgesToString(List<Edge<T>> edges) {
         StringBuilder builder = new StringBuilder();
         builder.append("[");
         boolean first = true;

@@ -7,18 +7,17 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.util.Set;
+import java.util.List;
 
 public class GraphTests {
 
-    private final Graph<String> graph = new Graph<>();
-
     @Test
     void testDepthFirstTraversal() {
-        graph.addEdge("test1", "test2", 5);
-        graph.addEdge("test2", "test3", 7);
-        graph.addEdge("test3", "test1", 9);
-        Set<Edge<String>> edges = graph.depthFirstTraversal("test1");
+        Graph<String> graph = new Graph<>();
+        graph.addEdge("test1", "test2");
+        graph.addEdge("test2", "test3");
+        graph.addEdge("test3", "test1");
+        List<Edge<String>> edges = graph.depthFirstTraversal("test1");
         assertEquals("[test1, test2, test3]", GraphStringUtils.edgesToString(edges));
     }
 
