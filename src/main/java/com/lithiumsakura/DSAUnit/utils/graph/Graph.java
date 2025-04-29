@@ -41,7 +41,7 @@ public class Graph<T> {
     }
 
     public List<Edge<T>> getAdjVertices(T vertex) {
-        return adjacencyList.get(vertex);
+        return adjacencyList.getOrDefault(vertex, Collections.emptyList());
     }
 
     public List<Edge<T>> depthFirstTraversal(T rootVertex) {
@@ -99,9 +99,8 @@ public class Graph<T> {
                 if (!nodeColorMap.containsKey(neighbor)) {
                     nodeColorMap.put(neighbor, oppositeColor);
                     stack.push(neighbor);
-                } else if (nodeColorMap.get(neighbor) == currentColor) {
-                    // this already has the current colour. is the size of this graph even?
-                    throw new RuntimeException("Graph is not an even size.");
+                } else {
+                    System.out.println(neighbor);
                 }
             }
         }

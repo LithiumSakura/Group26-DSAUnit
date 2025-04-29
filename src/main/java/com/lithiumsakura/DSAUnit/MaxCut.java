@@ -18,23 +18,38 @@ public class MaxCut implements Solution {
         graph.addEdge("test3", "test5");
         graph.addEdge("test5", "test4");
         graph.addEdge("test3", "test4");
-        graph.addEdge("test4", "test6");
+        graph.addEdge("test5", "test6");
+        /*graph.addEdge("test1", "test4");
+        graph.addEdge("test1", "test3");
+        graph.addEdge("test2", "test6");
+        graph.addEdge("test3", "test4");
+        graph.addEdge("test3", "test5");
+        graph.addEdge("test5", "test6");*/
+
     }
 
     @Override
     public void naive() {
         Map<String, Colour> colourMap = graph.splitGraph("test1");
+        System.out.println(colourMap);
+        Set<String> allNodes = graph.getAllNodes();
 
         int maxUnique = 0;
-        List<Edge<String>> edges = graph.depthFirstTraversal("test1");
-        for (Edge<String> edge : edges) {
-            Colour firstColour = colourMap.get(edge.getSource());
-            Colour secondColour = colourMap.get(edge.getDestination());
-            if (firstColour != secondColour) {
-                maxUnique++;
+        for (String node : allNodes) {
+            int unique = 0;
+            List<Edge<String>> edges = graph.depthFirstTraversal(node);
+            for (Edge<String> edge : edges) {
+                Colour firstColour = colourMap.get(edge.getSource());
+                Colour secondColour = colourMap.get(edge.getDestination());
+                if (firstColour != secondColour) {
+                    unique++;
+                }
+            }
+            System.out.printf("%s: %d\n", node, unique);
+            if (unique > maxUnique) {
+                maxUnique = unique;
             }
         }
-
         System.out.println(maxUnique);
     }
 
