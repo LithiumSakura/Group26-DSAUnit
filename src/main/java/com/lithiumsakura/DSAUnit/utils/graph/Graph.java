@@ -72,7 +72,7 @@ public class Graph<T> {
      * @param rootVertex Where to start
      * @return A map of nodes to their associated colours.
      */
-    public Map<T, Colour> groupedDepthFirstTraversal(T rootVertex) {
+    public Map<T, Colour> splitGraph(T rootVertex) {
 
         Map<T, Colour> nodeColorMap = new HashMap<>();
         // nodes that we need to process (not accounted for yet)
@@ -101,7 +101,7 @@ public class Graph<T> {
                     stack.push(neighbor);
                 } else if (nodeColorMap.get(neighbor) == currentColor) {
                     // this already has the current colour. is the size of this graph even?
-                    continue;
+                    throw new RuntimeException("Graph is not an even size.");
                 }
             }
         }

@@ -1,12 +1,13 @@
 package com.lithiumsakura.DSAUnit;
 
+import com.lithiumsakura.DSAUnit.utils.Solution;
 import com.lithiumsakura.DSAUnit.utils.graph.Colour;
 import com.lithiumsakura.DSAUnit.utils.graph.Edge;
 import com.lithiumsakura.DSAUnit.utils.graph.Graph;
 
 import java.util.*;
 
-public class MaxCut {
+public class MaxCut implements Solution {
 
     private final Graph<String> graph;
 
@@ -20,23 +21,32 @@ public class MaxCut {
         graph.addEdge("test4", "test6");
     }
 
+    @Override
+    public void naive() {
+        Map<String, Colour> colourMap = graph.splitGraph("test1");
 
-    public void run() {
-
-        List<String> blueNodes = new ArrayList<>();
-        List<String> redNodes = new ArrayList<>();
-
-        Map<String, Colour> colourMap = graph.groupedDepthFirstTraversal("test1");
-        System.out.println(colourMap);
-
-        for (Map.Entry<String, Colour> entry : colourMap.entrySet()) {
-            if (entry.getValue() == Colour.BLUE) {
-                blueNodes.add(entry.getKey());
-            } else {
-                redNodes.add(entry.getKey());
+        int maxUnique = 0;
+        List<Edge<String>> edges = graph.depthFirstTraversal("test1");
+        for (Edge<String> edge : edges) {
+            Colour firstColour = colourMap.get(edge.getSource());
+            Colour secondColour = colourMap.get(edge.getDestination());
+            if (firstColour != secondColour) {
+                maxUnique++;
             }
         }
 
+        System.out.println(maxUnique);
     }
 
+    @Override
+    public void chatGPT() {
+
+    }
+
+    @Override
+    public void best() {
+
+    }
 }
+
+

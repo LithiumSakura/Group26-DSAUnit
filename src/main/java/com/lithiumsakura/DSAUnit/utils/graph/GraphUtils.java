@@ -2,7 +2,7 @@ package com.lithiumsakura.DSAUnit.utils.graph;
 
 import java.util.List;
 
-public class GraphStringUtils {
+public class GraphUtils {
     public static <T> String edgesToString(List<Edge<T>> edges) {
         StringBuilder builder = new StringBuilder();
         builder.append("[");
