@@ -98,8 +98,12 @@ public class KnapsackImproved {
         int[] weights = {10, 20, 30};
         int capacity = 50;
 
+        long startTime = System.nanoTime();
         int[] result = knapsack(weights, values, capacity);
+        long endTime = System.nanoTime();
+        long nanosElasped = endTime - startTime;
         displayResults(values, weights, capacity, result);
+        System.out.println("Execution time: " + (nanosElasped) + "ns");
     }
 
 }

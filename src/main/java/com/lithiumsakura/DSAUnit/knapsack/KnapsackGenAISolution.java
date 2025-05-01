@@ -156,10 +156,11 @@ public class KnapsackGenAISolution {
         KnapsackSolution solution = solve(largeItemSet, largeCapacity);
         long endTime = System.nanoTime();
 
+        long nanosElasped = endTime - startTime;
         System.out.println("Solution for 30 items with capacity 50:");
         System.out.println("Maximum value: " + solution.maxValue);
         System.out.println("Total weight: " + solution.totalWeight);
         System.out.println("Number of selected items: " + solution.selectedItems.size());
-        System.out.println("Execution time: " + ((endTime - startTime) / 1000000) + " ms");
+        System.out.println("Execution time: " + (nanosElasped) + "ns");
     }
 }

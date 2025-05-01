@@ -26,7 +26,11 @@ public class Knapsack implements Solution {
     public void naive() {
         int n = values.length;
         int capacity = 10;
+        long startTime = System.nanoTime();
         System.out.println("\nMaximum value in Knapsack = " + knapsack_brute_force(capacity, n));
+        long endTime = System.nanoTime();
+        long nanosElasped = endTime - startTime;
+        System.out.println("Execution time: " + (nanosElasped) + "ns");
     }
 
     @Override
