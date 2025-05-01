@@ -62,6 +62,11 @@ public class MaxCut implements Solution {
     public void best() {
 
     }
+
+    @Override
+    public String name() {
+        return "Max Cut";
+    }
 }
 
 
