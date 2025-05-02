@@ -1,5 +1,6 @@
 package com.lithiumsakura.DSAUnit;
 
+import com.lithiumsakura.DSAUnit.maxcut.VNSMaxCut;
 import com.lithiumsakura.DSAUnit.utils.Solution;
 import com.lithiumsakura.DSAUnit.utils.graph.Colour;
 import com.lithiumsakura.DSAUnit.utils.graph.Edge;
@@ -13,34 +14,33 @@ public class MaxCut implements Solution {
 
     public MaxCut() {
         this.graph = new Graph<>();
-        graph.addEdge("test1", "test2");
-        graph.addEdge("test2", "test3");
-        graph.addEdge("test3", "test5");
-        graph.addEdge("test5", "test4");
-        graph.addEdge("test3", "test4");
-        graph.addEdge("test5", "test6");
-        /*graph.addEdge("test1", "test4");
-        graph.addEdge("test1", "test3");
-        graph.addEdge("test2", "test6");
-        graph.addEdge("test3", "test4");
-        graph.addEdge("test3", "test5");
-        graph.addEdge("test5", "test6");*/
-
+        for (int i = 1; i <= 100; i++) {
+            String nodeName = "node" + i;
+            for (int j = i + 1; j <= 100; j++) {
+                String otherNode = "node" + j;
+                graph.addEdge(nodeName, otherNode);
+            }
+        }
+        System.out.println(graph.size());
     }
 
     @Override
     public void naive() {
-        Map<String, Colour> colourMap = graph.splitGraph("test1");
-        System.out.println(colourMap);
-        Set<String> allNodes = graph.getAllNodes();
 
+        long startTime = System.currentTimeMillis();
+
+        Map<String, Colour> colourMap = graph.splitGraph("node1");
+        Set<String> allNodes = graph.getAllNodes();
         int maxUnique = 0;
+        // loop over all nodes to vary the root node
         for (String node : allNodes) {
             int unique = 0;
+            // traverse the graph
             List<Edge<String>> edges = graph.depthFirstTraversal(node);
             for (Edge<String> edge : edges) {
                 Colour firstColour = colourMap.get(edge.getSource());
                 Colour secondColour = colourMap.get(edge.getDestination());
+                // colours don't match? that's a cut.
                 if (firstColour != secondColour) {
                     unique++;
                 }
@@ -50,11 +50,15 @@ public class MaxCut implements Solution {
                 maxUnique = unique;
             }
         }
+        long endTime = System.currentTimeMillis();
+        // number of cuts found
         System.out.println(maxUnique);
+        System.out.println("Time taken: " + (endTime - startTime) + "ms");
     }
 
     @Override
     public void chatGPT() {
+        long startTime = System.currentTimeMillis();
         // Step 1: Initialize two sets A and B (colouring red and blue)
         Map<String, Colour> nodeColorMap = new HashMap<>();
         Set<String> setA = new HashSet<>();
@@ -105,12 +109,19 @@ public class MaxCut implements Solution {
             }
         } while (improvementMade);
 
+        long endTime = System.currentTimeMillis();
         System.out.println(nodeColorMap.size());
+        System.out.println("Time taken: " + (endTime - startTime) + "ms");
     }
 
     @Override
     public void best() {
-
+        long startTime = System.currentTimeMillis();
+        VNSMaxCut<String> vnsMaxCut = new VNSMaxCut<>(graph, "node1");
+        Map<String, Colour> run = vnsMaxCut.run(50);
+        long endTime = System.currentTimeMillis();
+        System.out.println(vnsMaxCut.cutAmount(run));
+        System.out.println("Time taken: " + (endTime - startTime) + "ms");
     }
 
     @Override
